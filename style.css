@@ -1,0 +1,64 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+} 
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    position: fixed;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height: 5%;
+    margin: 0;
+}
+
+#input {
+    top: 0%;
+}
+
+#output {
+    top: 5%;
+}
+
+.rectangles-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.rectangle {
+    width: 15%;
+    background-color: #3498db;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.left, .right, #keylamp {
+    display: flex;
+    flex-direction: column;
+    font-size: 2.6vmin;
+}
+
+.left, .right {
+    padding: 10%;
+}
+
+#canvas {
+    position: absolute;
+    bottom: 0;
+}
