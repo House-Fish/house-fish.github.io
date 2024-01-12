@@ -2,7 +2,7 @@ class Keyboard {
     constructor() {
         this.id = "keylamp"
         this.keylamp = document.querySelector("#" + this.id);
-        create_element(this.keylamp, this.id, letters)
+        createElement(this.keylamp, this.id, letters)
     }
     forward(letter) {
         const signal = letters.search(letter);
@@ -30,33 +30,33 @@ class Plugboard {
 
         this.plugboard = document.querySelector("#" + this.id);
 
-        this.left_element = this.plugboard.querySelector(".left");
-        create_element(this.left_element, this.id, this.left);
+        this.leftElement = this.plugboard.querySelector(".left");
+        createElement(this.leftElement, this.id, this.left);
 
-        this.right_element = this.plugboard.querySelector(".right");
-        create_element(this.right_element, this.id, this.right);
+        this.rightElement = this.plugboard.querySelector(".right");
+        createElement(this.rightElement, this.id, this.right);
     }
-    forward(signal_in) {
-        const letter = this.right[signal_in];
-        const signal_out = this.left.search(letter);
+    forward(signalIn) {
+        const letter = this.right[signalIn];
+        const signalOut = this.left.search(letter);
         drawInRectangle(this.id,
-            signal_in,
-            this.right_element,
-            signal_out,
-            this.left_element, 
+            signalIn,
+            this.rightElement,
+            signalOut,
+            this.leftElement, 
             "red")
-        return signal_out;
+        return signalOut;
     }
-    backward(signal_in) {
-        const letter = this.left[signal_in];
-        const signal_out = this.right.search(letter);
+    backward(signalIn) {
+        const letter = this.left[signalIn];
+        const signalOut = this.right.search(letter);
         drawInRectangle(this.id,
-            signal_in,
-            this.left_element,
-            signal_out,
-            this.right_element, 
+            signalIn,
+            this.leftElement,
+            signalOut,
+            this.rightElement, 
             "green")
-        return signal_out;
+        return signalOut;
     }
 }
 
@@ -66,42 +66,37 @@ class Rotor {
         this.right = wiring;
         this.notch = notch;
     }
-    create_elements(id) {
+    createElements(id) {
         this.id = id;
         this.rotor = document.querySelector("#" + this.id);
 
-        this.left_element = this.rotor.querySelector(".left");
-        create_element(this.left_element, this.id, this.left);
+        this.leftElement = this.rotor.querySelector(".left");
+        createElement(this.leftElement, this.id, this.left);
 
-        this.right_element = this.rotor.querySelector(".right");
-        create_element(this.right_element, this.id, this.right);
+        this.rightElement = this.rotor.querySelector(".right");
+        createElement(this.rightElement, this.id, this.right);
     }
-    forward(signal_in) {
-        const letter = this.right[signal_in];
-        const signal_out = this.left.search(letter);
+    forward(signalIn) {
+        const letter = this.right[signalIn];
+        const signalOut = this.left.search(letter);
         drawInRectangle(this.id,
-            signal_in,
-            this.right_element,
-            signal_out,
-            this.left_element,
+            signalIn,
+            this.rightElement,
+            signalOut,
+            this.leftElement,
             "red")
-        return signal_out;
+        return signalOut;
     }
-    backward(signal_in) {
-        const letter = this.left[signal_in];
-        const signal_out = this.right.search(letter);
+    backward(signalIn) {
+        const letter = this.left[signalIn];
+        const signalOut = this.right.search(letter);
         drawInRectangle(this.id,
-            signal_in,
-            this.left_element,
-            signal_out,
-            this.right_element, 
+            signalIn,
+            this.leftElement,
+            signalOut,
+            this.rightElement, 
             "green")
-        return signal_out;
-    }
-    show() {
-        console.log(this.left)
-        console.log(this.right)
-        console.log()
+        return signalOut;
     }
     rotate(n=1, forward=true) {
         for (let i = 0; i < n; i++) {
@@ -114,11 +109,11 @@ class Rotor {
             }
        }
     }
-    rotate_to_letter(letter) {
+    rotateToLetter(letter) {
         const n = letters.search(letter);
         this.rotate(n);
     }
-    set_ring(n) {
+    setRing(n) {
         // Rotate the rotor backwards
         this.rotate(n-1, false);
 
@@ -127,8 +122,8 @@ class Rotor {
         this.notch = letters[(n_notch - n + 1) % 26];
     }
     update() {
-        update_letters(this.left_element, this.id, this.left);
-        update_letters(this.right_element, this.id, this.right);
+        updateLetters(this.leftElement, this.id, this.left);
+        updateLetters(this.rightElement, this.id, this.right);
     }
 }
 
@@ -137,27 +132,27 @@ class Reflector {
         this.left = letters;
         this.right = wiring;
     }
-    create_elements() {
+    createElements() {
         this.id = "reflector"
         this.reflector = document.querySelector("#" + this.id);
 
-        this.left_element = this.reflector.querySelector(".left");
-        create_element(this.left_element, this.id, this.left);
+        this.leftElement = this.reflector.querySelector(".left");
+        createElement(this.leftElement, this.id, this.left);
 
-        this.right_element = this.reflector.querySelector(".right");
-        create_element(this.right_element, this.id, this.right);
+        this.rightElement = this.reflector.querySelector(".right");
+        createElement(this.rightElement, this.id, this.right);
  
     }
-    reflect(signal_in) {
-        const letter = this.right[signal_in];
-        const signal_out = this.left.search(letter);
+    reflect(signalIn) {
+        const letter = this.right[signalIn];
+        const signalOut = this.left.search(letter);
         drawInRectangle(this.id,
-            signal_in,
-            this.right_element,
-            signal_out,
-            this.left_element, 
+            signalIn,
+            this.rightElement,
+            signalOut,
+            this.leftElement, 
             "red")
-        return signal_out;
+        return signalOut;
     }
 }
 
@@ -170,21 +165,21 @@ class Enigma {
         this.pb = pb;
         this.kb = kb;
 
-        this.r1.create_elements("third");
-        this.r2.create_elements("second");
-        this.r3.create_elements("first");
-        this.re.create_elements();
+        this.r1.createElements("third");
+        this.r2.createElements("second");
+        this.r3.createElements("first");
+        this.re.createElements();
     }
-    set_key(key) {
-        this.r1.rotate_to_letter(key[0]);
-        this.r2.rotate_to_letter(key[1]);
-        this.r3.rotate_to_letter(key[2]);
+    setKey(key) {
+        this.r1.rotateToLetter(key[0]);
+        this.r2.rotateToLetter(key[1]);
+        this.r3.rotateToLetter(key[2]);
 
     }
-    set_rings(rings) {
-        this.r1.set_ring(rings[0]);
-        this.r2.set_ring(rings[1]);
-        this.r3.set_ring(rings[2]);
+    setRings(rings) {
+        this.r1.setRing(rings[0]);
+        this.r2.setRing(rings[1]);
+        this.r3.setRing(rings[2]);
     }
     encrypt(letter) {
         // Rotate the rotors
@@ -203,98 +198,100 @@ class Enigma {
             this.r3.rotate();
         }
 
+        // Update rotors
+        this.r1.update();
+        this.r2.update();
+        this.r3.update();
+
         // Pass signal through machine
         let signal = this.kb.forward(letter);
         drawBetweenRectangle(signal,
             this.kb.id,
             this.kb.keylamp,
             this.pb.id,
-            this.pb.right_element, 
+            this.pb.rightElement, 
             "red") 
         signal = this.pb.forward(signal);
         drawBetweenRectangle(signal,
             this.pb.id,
-            this.pb.left_element,
+            this.pb.leftElement,
             this.r3.id,
-            this.r3.right_element,
+            this.r3.rightElement,
             "red") 
         signal = this.r3.forward(signal);
         drawBetweenRectangle(signal,
             this.r3.id,
-            this.r3.left_element,
+            this.r3.leftElement,
             this.r2.id,
-            this.r2.right_element,
+            this.r2.rightElement,
             "red") 
         signal = this.r2.forward(signal);
         drawBetweenRectangle(signal,
             this.r2.id,
-            this.r2.left_element,
+            this.r2.leftElement,
             this.r1.id,
-            this.r1.right_element,
+            this.r1.rightElement,
             "red") 
         signal = this.r1.forward(signal);
         drawBetweenRectangle(signal,
             this.r1.id,
-            this.r1.left_element,
+            this.r1.leftElement,
             this.re.id,
-            this.re.right_element,
+            this.re.rightElement,
             "red") 
         signal = this.re.reflect(signal);
         drawBetweenRectangle(signal,
             this.re.id,
-            this.re.left_element,
+            this.re.leftElement,
             this.re.id,
-            this.re.right_element,
+            this.re.rightElement,
             "green") 
         drawBetweenRectangle(signal,
             this.re.id,
-            this.re.right_element,
+            this.re.rightElement,
             this.r1.id,
-            this.r1.left_element,
+            this.r1.leftElement,
             "green") 
         signal = this.r1.backward(signal);
         drawBetweenRectangle(signal,
             this.r1.id,
-            this.r1.right_element,
+            this.r1.rightElement,
             this.r2.id,
-            this.r2.left_element,
+            this.r2.leftElement,
             "green") 
         signal = this.r2.backward(signal);
         drawBetweenRectangle(signal,
             this.r2.id,
-            this.r2.right_element,
+            this.r2.rightElement,
             this.r3.id,
-            this.r3.left_element, 
+            this.r3.leftElement, 
             "green") 
         signal = this.r3.backward(signal);
         drawBetweenRectangle(signal,
             this.r3.id,
-            this.r3.right_element,
+            this.r3.rightElement,
             this.pb.id,
-            this.pb.left_element,
+            this.pb.leftElement,
             "green") 
         signal = this.pb.backward(signal);
         drawBetweenRectangle(signal,
             this.pb.id,
-            this.pb.right_element,
+            this.pb.rightElement,
             this.kb.id,
             this.kb.keylamp, 
             "green") 
         letter = this.kb.backward(signal);
         return letter;
     }
-    update() {
-        this.r1.update();
-        this.r2.update();
-        this.r3.update();
-    }
 }
 
 const shift = document.querySelector("#input").getBoundingClientRect().height 
-            + document.querySelector("#output").getBoundingClientRect().height;
+            + document.querySelector("#output").getBoundingClientRect().height
+            + document.querySelector("#titles").getBoundingClientRect().height;
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
+const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
 
 
 // Rotors and Reflectors 
@@ -313,15 +310,15 @@ const KB = new Keyboard();
 const PB = new Plugboard(["AB", "CD", "EF"]);
 
 // Enigma Machine
-const enigma = new Enigma(B, IV, II, I, PB, KB);
+let enigma = new Enigma(B, IV, II, I, PB, KB);
 
 // Set rings
-enigma.set_rings([5,26,2])
+enigma.setRings([5,26,2])
 
 // Set Key
-enigma.set_key("CAT");
+enigma.setKey("CAT");
 
-function create_element(element, id, letters) {
+function createElement(element, id, letters) {
     for (let i = 0; i < letters.length; ++i) {
         const letter = document.createElement('div');
         letter.setAttribute("id", id + i);
@@ -330,27 +327,19 @@ function create_element(element, id, letters) {
     }
 }
 
-function update_letters(element, id, letters) {
+function updateLetters(element, id, letters) {
     for (let i = 0; i < letters.length; ++i) {
         const letter = element.querySelector("#" + id + i);
         letter.textContent = letters[i];
     }
 }
 
-function getOffset(el) {
+function getCoordinate(el) {
     const rect = el.getBoundingClientRect();
     return {
       x: rect.left + rect.width / 2,
       y: rect.top + rect.height / 2
     };
-}
-
-function initializeCanvas() {
-    // Set initial canvas size
-    resizeCanvas(context);
-
-    // Handle window resize events
-    window.addEventListener('resize', resizeCanvas);
 }
 
 // Function to resize the canvas
@@ -377,43 +366,46 @@ function clearCanvas() {
 
 function drawInRectangle(id, sourceIdx, sourceGroupDiv, destIdx, destGroupDiv, color) {
     const sourceDiv = sourceGroupDiv.querySelector("#" + id + sourceIdx);
-    const sourceX = getOffset(sourceDiv).x;
-    const sourceY = getOffset(sourceDiv).y - shift;
+    const sourceX = getCoordinate(sourceDiv).x;
+    const sourceY = getCoordinate(sourceDiv).y - shift;
 
     const destDiv = destGroupDiv.querySelector("#" + id + destIdx);
-    const destX = getOffset(destDiv).x;
-    const destY = getOffset(destDiv).y - shift;
+    const destX = getCoordinate(destDiv).x;
+    const destY = getCoordinate(destDiv).y - shift;
 
     drawLine(sourceX, sourceY, destX, destY, color);
-
 }
 
 function drawBetweenRectangle(idx, sourceId, sourceGroupDiv, destId, destGroupDiv, color) {
     const sourceDiv = sourceGroupDiv.querySelector("#" + sourceId + idx);
-    const sourceX = getOffset(sourceDiv).x;
-    const sourceY = getOffset(sourceDiv).y - shift;
+    const sourceX = getCoordinate(sourceDiv).x;
+    const sourceY = getCoordinate(sourceDiv).y - shift;
 
     const destDiv = destGroupDiv.querySelector("#" + destId + idx);
-    const destX = getOffset(destDiv).x;
-    const destY = getOffset(destDiv).y - shift;
+    const destX = getCoordinate(destDiv).x;
+    const destY = getCoordinate(destDiv).y - shift;
 
     drawLine(sourceX, sourceY, destX, destY, color);
 }
 
 window.addEventListener("keydown", (event) => {
-    if (event.keyCode > 64 && event.keyCode < 91) {
+    const key = event.key;
+    if (alphabet.includes(key)) {
         clearCanvas();
         const input = document.querySelector("#input");
         const output = document.querySelector("#output");
-        const letter = event.key.toUpperCase();
+        const letter = key.toUpperCase();
         input.textContent = input.textContent += letter;
         output.textContent = output.textContent += enigma.encrypt(letter);
-        enigma.update(letter);
+    } else if (key === " ") {
+        input.textContent = input.textContent += " ";
+        output.textContent = output.textContent += " ";
+    } else if (key === "Backspace") {
+        // Why? becuz im lazy XD!
+        location.reload();
     }
 });
 
-window.addEventListener('load', () => {
-    initializeCanvas();
-    enigma.update();
-    }
-);
+window.addEventListener('load', resizeCanvas);
+
+window.addEventListener('resize', resizeCanvas);
