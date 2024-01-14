@@ -7,40 +7,42 @@
     <title>Enigma Machine</title>
 </head>
 <body>
-    <h1 id="input">Plaintext: </h1>
-    <h1 id="output">Ciphertext: </h1>
+    <div id="input">Plaintext: </div>
+    <div id="output">Ciphertext: </div>
     <div id="titles">
-        <h2>Reflector</h2>
-        <h2>Rotor IV</h2>
-        <h2>Rotor II</h2>
-        <h2>Rotor I</h2>
-        <h2>Plugboard</h2>
-        <h2>Key/Lamp Board</h2>
+        <div class="title">Reflector</div>
+        <div class="title">Rotor IV</div>
+        <div class="title">Rotor II</div>
+        <div class="title">Rotor I</div>
+        <div class="title">Plugboard</div>
+        <div class="title">Key/Lamp Board</div>
     </div>
-    <div class="rectangles-container">
-        <div class="rectangle" id="reflector">
-            <div class="left"></div>
-            <div class="right"></div>
+    <div id="enigma">
+        <div id="rectangles-container">
+            <div class="rectangle" id="reflector">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <div class="rectangle" id="third">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <div class="rectangle" id="second">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <div class="rectangle" id="first">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <div class="rectangle" id="plugboard">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <div class="rectangle" id="keylamp"></div>
         </div>
-        <div class="rectangle" id="third">
-            <div class="left"></div>
-            <div class="right"></div>
-        </div>
-        <div class="rectangle" id="second">
-            <div class="left"></div>
-            <div class="right"></div>
-        </div>
-        <div class="rectangle" id="first">
-            <div class="left"></div>
-            <div class="right"></div>
-        </div>
-        <div class="rectangle" id="plugboard">
-            <div class="left"></div>
-            <div class="right"></div>
-        </div>
-        <div class="rectangle" id="keylamp"></div>
+        <canvas id="canvas"></canvas>
     </div>
-    <canvas id="canvas"></canvas>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

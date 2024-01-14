@@ -44,7 +44,7 @@ class Plugboard {
             this.rightElement,
             signalOut,
             this.leftElement, 
-            "red")
+            green)
         return signalOut;
     }
     backward(signalIn) {
@@ -55,7 +55,7 @@ class Plugboard {
             this.leftElement,
             signalOut,
             this.rightElement, 
-            "green")
+            red)
         return signalOut;
     }
 }
@@ -65,6 +65,7 @@ class Rotor {
         this.left = letters;
         this.right = wiring;
         this.notch = notch;
+        this.ring = 0;
     }
     createElements(id) {
         this.id = id;
@@ -84,7 +85,7 @@ class Rotor {
             this.rightElement,
             signalOut,
             this.leftElement,
-            "red")
+            green)
         return signalOut;
     }
     backward(signalIn) {
@@ -95,7 +96,7 @@ class Rotor {
             this.leftElement,
             signalOut,
             this.rightElement, 
-            "green")
+            red)
         return signalOut;
     }
     rotate(n=1, forward=true) {
@@ -114,16 +115,28 @@ class Rotor {
         this.rotate(n);
     }
     setRing(n) {
+        this.ring = n - 1
         // Rotate the rotor backwards
-        this.rotate(n-1, false);
+        this.rotate(this.ring, false);
 
         // Adjust the turnover notch in relationship to the wiring
         const n_notch = letters.search(this.notch);
-        this.notch = letters[(n_notch - n + 1) % 26];
+        let mod = (n_notch - n + 1) % 26
+        if (mod < 0) {
+            mod = mod + 26;
+        }
+        this.notch = letters[mod];
     }
     update() {
         updateLetters(this.leftElement, this.id, this.left);
         updateLetters(this.rightElement, this.id, this.right);
+
+        for (let i = 0; i < this.left.length; i++) {
+            this.leftElement.querySelector("#" + this.id + i).style.background = "";
+        } 
+
+        this.leftElement.querySelector("#" + this.id + this.ring).style.background = "#3FA7D6";
+        this.leftElement.querySelector("#" + this.id + this.left.search(this.notch)).style.background = "#FAC05E";
     }
 }
 
@@ -151,7 +164,7 @@ class Reflector {
             this.rightElement,
             signalOut,
             this.leftElement, 
-            "red")
+            orange)
         return signalOut;
     }
 }
@@ -210,76 +223,76 @@ class Enigma {
             this.kb.keylamp,
             this.pb.id,
             this.pb.rightElement, 
-            "red") 
+            green) 
         signal = this.pb.forward(signal);
         drawBetweenRectangle(signal,
             this.pb.id,
             this.pb.leftElement,
             this.r3.id,
             this.r3.rightElement,
-            "red") 
+            green) 
         signal = this.r3.forward(signal);
         drawBetweenRectangle(signal,
             this.r3.id,
             this.r3.leftElement,
             this.r2.id,
             this.r2.rightElement,
-            "red") 
+            green) 
         signal = this.r2.forward(signal);
         drawBetweenRectangle(signal,
             this.r2.id,
             this.r2.leftElement,
             this.r1.id,
             this.r1.rightElement,
-            "red") 
+            green) 
         signal = this.r1.forward(signal);
         drawBetweenRectangle(signal,
             this.r1.id,
             this.r1.leftElement,
             this.re.id,
             this.re.rightElement,
-            "red") 
+            green) 
         signal = this.re.reflect(signal);
         drawBetweenRectangle(signal,
             this.re.id,
             this.re.leftElement,
             this.re.id,
             this.re.rightElement,
-            "green") 
+            orange) 
         drawBetweenRectangle(signal,
             this.re.id,
             this.re.rightElement,
             this.r1.id,
             this.r1.leftElement,
-            "green") 
+            red) 
         signal = this.r1.backward(signal);
         drawBetweenRectangle(signal,
             this.r1.id,
             this.r1.rightElement,
             this.r2.id,
             this.r2.leftElement,
-            "green") 
+            red) 
         signal = this.r2.backward(signal);
         drawBetweenRectangle(signal,
             this.r2.id,
             this.r2.rightElement,
             this.r3.id,
             this.r3.leftElement, 
-            "green") 
+            red) 
         signal = this.r3.backward(signal);
         drawBetweenRectangle(signal,
             this.r3.id,
             this.r3.rightElement,
             this.pb.id,
             this.pb.leftElement,
-            "green") 
+            red) 
         signal = this.pb.backward(signal);
         drawBetweenRectangle(signal,
             this.pb.id,
             this.pb.rightElement,
             this.kb.id,
             this.kb.keylamp, 
-            "green") 
+            red) 
         letter = this.kb.backward(signal);
         return letter;
     }
@@ -292,7 +305,9 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
-
+const green = "#069C56";
+const red = "#D3212C";
+const orange = "#FF681E";
 
 // Rotors and Reflectors 
 const I = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q");
@@ -344,7 +359,7 @@ function getCoordinate(el) {
 
 // Function to resize the canvas
 function resizeCanvas() {
-    const container = document.querySelector(".rectangles-container").getBoundingClientRect();
+    const container = document.querySelector("#rectangles-container").getBoundingClientRect();
     canvas.width = container.width;
     canvas.height = container.height;
 }
