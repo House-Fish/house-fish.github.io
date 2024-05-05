@@ -1,17 +1,18 @@
 body {
-    font-family: Roboto;
-    max-width: 40%;
-    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+h1, .contact_info {
+    text-align: center;
+    padding-top: 5%;
 }
 
 u {
     text-decoration: underline;
     color: #DB3214;
-}
-
-.contact_info, h1 {
-    text-align: center;
-    margin-top: 5%;
 }
 
 h2 {
@@ -20,8 +21,11 @@ h2 {
 
 img {
     box-shadow: #14DB86 3px 4px;
+
     max-width: 40%;
     height: auto;
+
+    transition: transform .7s ease-in-out;
 }
 
 p, li {
@@ -31,4 +35,8 @@ p, li {
 
 li {
     margin-bottom: 10px;
+}
+
+img:hover {
+    transform: rotate(360deg);
 }
