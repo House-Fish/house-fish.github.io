@@ -20,11 +20,14 @@ h2 {
 }
 
 img {
+    /* Adding shadow to images */
     box-shadow: #14DB86 3px 4px;
 
+    /* Setting the width and height of the images */
     max-width: 40%;
     height: auto;
 
+    /* Setting the image to transform when easing out of the image */
     transition: transform .7s ease-in-out;
 }
 
