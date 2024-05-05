@@ -1,0 +1,34 @@
+body {
+    font-family: Roboto;
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+u {
+    text-decoration: underline;
+    color: #DB3214;
+}
+
+.contact_info, h1 {
+    text-align: center;
+    margin-top: 5%;
+}
+
+h2 {
+    color: #DB3214;
+}
+
+img {
+    box-shadow: #14DB86 3px 4px;
+    max-width: 40%;
+    height: auto;
+}
+
+p, li {
+    text-wrap: wrap;
+    font-size: 1.125em;
+}
+
+li {
+    margin-bottom: 10px;
+}
